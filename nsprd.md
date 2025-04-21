@@ -130,12 +130,13 @@ export class WebGPUCompute {
 }
 ```
 Fallback Hierarchy:
-WebGPU (primary)
-WebGL2 (fragment shaders)
-WASM (specialized compute)
-CPU (web workers)
-DeviceManager (src/core/DeviceManager.ts)
-Manages device registration and monitoring.
+- WebGPU (primary)
+- WebGL2 (fragment shaders)
+- WASM (specialized compute)
+- CPU (web workers)
+
+- DeviceManager (src/core/DeviceManager.ts)
+- Manages device registration and monitoring.
 
 ```typescript
 export class DeviceManager {
@@ -173,27 +174,27 @@ export class TaskScheduler {
 }
 ```
 
-Frontend Application
-Built with React and TypeScript, using Vite for fast builds.
+Frontend A
+- Built with React and TypeScript, using Vite.
 Key UI Components
 
-Dashboard (src/components/Dashboard.tsx): Displays network stats, active nodes, tasks, and earnings.
-DevicePanel (src/components/DevicePanel.tsx): Manages device registration and status.
-AITasksPanel (src/components/AITasksPanel.tsx): Shows task listings, creation, and results.
-EarningsPanel (src/components/EarningsPanel.tsx): Tracks earnings and payouts.
-NetworkStats (src/components/NetworkStats.tsx): Real-time network metrics.
-ReferralPanel (src/components/ReferralPanel.tsx): Manages referral program.
+- Dashboard (src/components/Dashboard.tsx): Displays network stats, active nodes, tasks, and earnings.
+- DevicePanel (src/components/DevicePanel.tsx): Manages device registration and status.
+- AITasksPanel (src/components/AITasksPanel.tsx): Shows task listings, creation, and results.
+- EarningsPanel (src/components/EarningsPanel.tsx): Tracks earnings and payouts.
+- NetworkStats (src/components/NetworkStats.tsx): Real-time network metrics.
+- ReferralPanel (src/components/ReferralPanel.tsx): Manages referral program.
 
 
 State Management
-Zustand: Core node state.
-React Context: Global app state.
-Supabase Subscriptions: Real-time updates.
-Local/Session Storage: Persistent state.
+- Zustand: Core node state.
+- React Context: Global app state.
+- Supabase Subscriptions: Real-time updates.
+- Local/Session Storage: Persistent state.
 
 Blockchain Integration
-SolanaService (src/services/SolanaService.ts)
-Handles blockchain interactions.
+- SolanaService (src/services/SolanaService.ts)
+- Handles blockchain interactions.
 
 ```typescript
 export class SolanaService implements ISolanaService {
@@ -243,13 +244,14 @@ pub mod swarm_network {
   pub fn claim_reward(ctx: Context<ClaimReward>, amount: u64) -> Result<()> {}
 }
 State Accounts:
-DeviceAccount
-TaskAccount
-UserAccount
-NetworkState
-Database & State Management
+- DeviceAccount
+- TaskAccount
+- UserAccount
+- NetworkState
+- Database & State Management
+
 SupabaseService (src/services/SupabaseService.ts)
-Manages database operations.
+- Manages database operations.
 
 ```typescript
 export class SupabaseService {
@@ -384,20 +386,21 @@ interface NodeReputation {
 }
 ```
 Performance Optimization
-WebGPU: Optimized shader pipelines.
-Task Scheduling: Priority-based queuing.
-Database: Indexed queries, caching.
-Frontend: Code splitting, lazy loading.
+- WebGPU: Optimized shader pipelines.
+- Task Scheduling: Priority-based queuing.
+- Database: Indexed queries, caching.
+- Frontend: Code splitting, lazy loading.
 
 Deployment & Environment
-Development Setup
-bash
+
+
 git clone <repo-url>
 cd NeuroSwarm
 npm install
 cp .env.example .env
 npm run dev
-Environment Variables
+
+
 env
 # Solana
 VITE_SOLANA_NETWORK=devnet
