@@ -1,5 +1,4 @@
-I understand you want a Markdown-formatted version of the NeuroSwarm project documentation that can be directly pasted into GitHub, ensuring proper rendering with correct spacing, syntax highlighting, and Markdown syntax. The previous response was already in Markdown, but I'll refine it further to ensure it renders perfectly on GitHub, addressing any potential issues with spacing, code fences, or GitHub-specific Markdown quirks. Below is the optimized Markdown document, ready to be copied and pasted into a GitHub repository (e.g., a README.md or docs/project-documentation.md file).
-markdown
+
 # Project Documentation
 
 ## Table of Contents
@@ -104,15 +103,19 @@ export class ComputeNode {
   async submitTaskProof(taskId: string, result: TaskResult): Promise<void>;
   async stakeTokens(): Promise<void>;
 }
+```
 State Management (using Zustand):
-typescript
+
+```typescript
 export const useNodeStore = create<NodeState>((set) => ({
   isActive: false,
   metrics: { taskCount: 0, successRate: 100, averageExecutionTime: 0, totalEarnings: 0 },
 }));
+```
 WebGPUCompute (src/core/WebGPUCompute.ts)
 Handles GPU computation with fallbacks.
-typescript
+
+```typescript
 export class WebGPUCompute {
   private device: GPUDevice | null;
   private fallback: ComputeFallback | null;
@@ -125,6 +128,7 @@ export class WebGPUCompute {
   private async setupWasmFallback(): Promise<ComputeFallback>;
   private async setupCPUFallback(): Promise<ComputeFallback>;
 }
+```
 Fallback Hierarchy:
 WebGPU (primary)
 WebGL2 (fragment shaders)
@@ -132,7 +136,8 @@ WASM (specialized compute)
 CPU (web workers)
 DeviceManager (src/core/DeviceManager.ts)
 Manages device registration and monitoring.
-typescript
+
+```typescript
 export class DeviceManager {
   // Core methods
   async registerDevice(specs: DeviceSpecs): Promise<string>;
@@ -140,9 +145,11 @@ export class DeviceManager {
   async updateDeviceStatus(deviceId: string, status: DeviceStatus): Promise<void>;
   async getAvailableDevices(): Promise<Device[]>;
 }
+```
 TaskManager (src/core/TaskManager.ts)
 Handles task lifecycle.
-typescript
+
+```typescript
 export class TaskManager {
   // Core methods
   async submitTask(taskType: string, requirements: TaskRequirements): Promise<string>;
@@ -150,9 +157,11 @@ export class TaskManager {
   async processTaskResult(taskId: string, result: TaskResult): Promise<boolean>;
   async validateTask(taskId: string, result: TaskResult): Promise<boolean>;
 }
+```
 TaskScheduler (src/core/TaskScheduler.ts)
 Optimizes task allocation.
-typescript
+
+```typescript
 export class TaskScheduler {
   private taskQueue: PriorityQueue<AITask>;
   private nodeRegistry: Map<string, ComputeNode>;
@@ -162,24 +171,31 @@ export class TaskScheduler {
   registerNode(node: ComputeNode): void;
   findSuitableNode(task: AITask): ComputeNode | null;
 }
+```
+
 Frontend Application
 Built with React and TypeScript, using Vite for fast builds.
 Key UI Components
+
 Dashboard (src/components/Dashboard.tsx): Displays network stats, active nodes, tasks, and earnings.
 DevicePanel (src/components/DevicePanel.tsx): Manages device registration and status.
 AITasksPanel (src/components/AITasksPanel.tsx): Shows task listings, creation, and results.
 EarningsPanel (src/components/EarningsPanel.tsx): Tracks earnings and payouts.
 NetworkStats (src/components/NetworkStats.tsx): Real-time network metrics.
 ReferralPanel (src/components/ReferralPanel.tsx): Manages referral program.
+
+
 State Management
 Zustand: Core node state.
 React Context: Global app state.
 Supabase Subscriptions: Real-time updates.
 Local/Session Storage: Persistent state.
+
 Blockchain Integration
 SolanaService (src/services/SolanaService.ts)
 Handles blockchain interactions.
-typescript
+
+```typescript
 export class SolanaService implements ISolanaService {
   private connection: Connection;
   private program: Program<Idl>;
@@ -191,9 +207,11 @@ export class SolanaService implements ISolanaService {
   async distributeReward(recipient: PublicKey, amount: number, payer: Keypair, tokenAccount: PublicKey): Promise<TransactionSignature>;
   async stakeTokens(user: PublicKey, amount: number, payer: Keypair, tokenAccount: PublicKey): Promise<string>;
 }
+```
 ComputeToken (src/contracts/ComputeToken.ts)
 Manages token economy.
-typescript
+
+```typescript
 export class ComputeToken {
   private mintLimits = {
     hourly: 1000,
@@ -210,6 +228,7 @@ export class ComputeToken {
   async unstakeTokens(user: PublicKey, amount: number): Promise<boolean>;
   async distributeRewards(tasks: Task[]): Promise<void>;
 }
+```
 Solana Program (swarm_network/programs/swarm_network/src)
 Implemented in Rust using Anchor.
 rust
@@ -231,7 +250,8 @@ NetworkState
 Database & State Management
 SupabaseService (src/services/SupabaseService.ts)
 Manages database operations.
-typescript
+
+```typescript
 export class SupabaseService {
   private client: SupabaseClient;
 
@@ -241,6 +261,7 @@ export class SupabaseService {
   async logTaskProof(proofData: TaskProofData): Promise<void>;
   async getEarningHistory(days: number, walletAddress?: string): Promise<EarningHistory[]>;
 }
+```
 Database Schema
 nodes:
 sql
@@ -306,7 +327,8 @@ CREATE TABLE referrals (
 Compute Infrastructure
 WebGPU Implementation
 Uses modern web standards for GPU computing.
-typescript
+
+```typescript
 private async webGPUCompute(data: Float32Array, shader: string): Promise<Float32Array> {
   if (!this.device) throw new Error('WebGPU not initialized');
 
@@ -317,9 +339,11 @@ private async webGPUCompute(data: Float32Array, shader: string): Promise<Float32
   });
   // Compute pipeline setup and execution
 }
+```
 Fallback Mechanisms
 WebGL2:
-typescript
+
+```typescript
 private async setupWebGL2Fallback(): Promise<ComputeFallback> {
   const canvas = document.createElement('canvas');
   const gl = canvas.getContext('webgl2');
@@ -336,18 +360,20 @@ export class RateLimiter {
   checkLimit(identifier: string, limit: number): boolean;
   trackRequest(identifier: string): void;
 }
+```
 Limits:
 Requests: 60/min (standard), 300/min (verified)
 Tasks: 100/hour (standard), 500/hour (verified)
 Withdrawals: 2/day (standard), 5/day (verified)
 Task Validation
-typescript
+```typescript
 export class TaskValidator {
   validate(task: AITask, result: any): boolean;
   addValidationRule(taskType: TaskType, validator: (result: any) => boolean): void;
 }
+```
 Node Reputation
-typescript
+```typescript
 interface NodeReputation {
   score: number;
   taskCount: number;
@@ -356,11 +382,13 @@ interface NodeReputation {
   lastActive: number;
   isBanned: boolean;
 }
+```
 Performance Optimization
 WebGPU: Optimized shader pipelines.
 Task Scheduling: Priority-based queuing.
 Database: Indexed queries, caching.
 Frontend: Code splitting, lazy loading.
+
 Deployment & Environment
 Development Setup
 bash
@@ -386,17 +414,20 @@ VITE_ENABLE_REFERRALS=true
 # Security
 VITE_RATE_LIMIT_TASKS=100
 VITE_NODE_MIN_STAKE=1000
-Build Configuration (vite.config.ts)
-Node polyfills for Solana
-WebGPU/WebGL optimization
-Bundling for core libraries
+
+- Build Configuration (vite.config.ts)
+- Node polyfills for Solana
+- WebGPU/WebGL optimization
+- Bundling for core libraries
+
 Deployment Process
-Build: npm run build
-Deploy frontend to hosting
-Deploy Solana program
-Configure Supabase
-Developer Guide
-Project Structure
+
+- Build: npm run build
+- Deploy frontend to hosting
+- Deploy Solana program
+- Configure Supabase
+
+Structure
 NeuroSwarm/
 ├── src/
 │   ├── components/        # React UI components
@@ -413,44 +444,20 @@ NeuroSwarm/
 ├── server/                # Backend code
 ├── tests/                 # Test suite
 └── swarm_network/         # Solana program
-Development Tasks
-New Task Type:
-Update TaskType in src/types/index.ts
-Add handler in TaskService
-Update UI in AITasksPanel
-Add validation in SecurityService
-New Compute Method:
-Update WebGPUCompute
-Implement fallback
-Update capability detection
-Blockchain Feature:
-Update Anchor program
-Deploy program
-Update IDL
-Implement in SolanaService
-Testing
-Unit: npm run test
-Integration: npm run test:integration
-E2E: npm run test:e2e
-Blockchain: cd swarm_network && anchor test
-Appendix: API Reference
-To be populated with detailed API endpoints, request/response formats, and usage examples.
 
-### Key Optimizations for GitHub
-1. **Code Fences**: Used triple backticks (```) with explicit language identifiers (e.g., `typescript`, `rust`, `sql`, `bash`, `env`) for proper syntax highlighting on GitHub.
-2. **Spacing**: Ensured consistent spacing (two spaces before lists, blank lines between sections) to avoid rendering issues.
-3. **Headings**: Used proper Markdown heading levels (`#`, `##`, `###`) for clear hierarchy.
-4. **ASCII Art**: Kept the architecture diagram simple using plain text to ensure it renders correctly in GitHub's Markdown viewer.
-5. **Lists and Tables**: Used hyphens for unordered lists and ensured proper alignment for readability.
-6. **File Paths**: Enclosed file paths in backticks (e.g., `src/core/ComputeNode.ts`) for inline code formatting.
-7. **Environment Variables**: Used `env` language identifier for the `.env` file to ensure proper rendering.
-8. **Consistency**: Standardized formatting for code blocks, ensuring method signatures and comments are clear.
 
-### Instructions for GitHub
-1. Copy the entire code block above.
-2. Create or edit a `.md` file in your GitHub repository (e.g., `README.md` or `docs/project-documentation.md`).
-3. Paste the content into the file.
-4. Save and commit the changes.
-5. Preview the file in GitHub to verify rendering.
-
-The document should render cleanly with proper formatting, syntax highlighting, and navigation via the table of contents. If you encounter any rendering issues on GitHub or need specific adjustments (e.g., adding a license, badges, or additional sections), let me know!
+Dev Tasks
+- New Task Type:
+- Update TaskType in src/types/index.ts
+- Add handler in TaskService
+- Update UI in AITasksPanel
+- Add validation in SecurityService
+- New Compute Method:
+- Update WebGPUCompute
+- Implement fallback
+- Update capability detection
+- Blockchain Feature:
+- Update Anchor program
+- Deploy program
+- Update IDL
+- Implement in SolanaService
