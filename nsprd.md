@@ -101,15 +101,22 @@ export class ComputeNode {
     async submitTaskProof(taskId: string, result: TaskResult): Promise<void>
     async stakeTokens(): Promise<void>
 }
+
+```
+
 State management uses Zustand:
-typescript
+
+```typescripttypescript
 export const useNodeStore = create<NodeState>((set) => ({
     isActive: false,
     metrics: { taskCount: 0, successRate: 100, averageExecutionTime: 0, totalEarnings: 0 },
 }));
-WebGPUCompute (src/core/WebGPUCompute.ts)
+
+```
+
+### WebGPUCompute (src/core/WebGPUCompute.ts)
 Handles GPU computation with fallbacks.
-typescript
+```typescript
 export class WebGPUCompute {
     private device: GPUDevice | null;
     private fallback: ComputeFallback | null;
@@ -122,6 +129,9 @@ export class WebGPUCompute {
     private async setupWasmFallback(): Promise<ComputeFallback>
     private async setupCPUFallback(): Promise<ComputeFallback>
 }
+
+```
+
 Fallback hierarchy:
 WebGPU (primary)
 WebGL2 (fragment shaders)
@@ -129,7 +139,8 @@ WASM (specialized compute)
 CPU (web workers)
 DeviceManager (src/core/DeviceManager.ts)
 Manages device registration and monitoring.
-typescript
+
+```typescript
 export class DeviceManager {
     // Core methods
     async registerDevice(specs: DeviceSpecs): Promise<string>
@@ -137,9 +148,10 @@ export class DeviceManager {
     async updateDeviceStatus(deviceId: string, status: DeviceStatus): Promise<void>
     async getAvailableDevices(): Promise<Device[]>
 }
+```
 TaskManager (src/core/TaskManager.ts)
 Handles task lifecycle.
-typescript
+```typescript
 export class TaskManager {
     // Core methods
     async submitTask(taskType: string, requirements: TaskRequirements): Promise<string>
@@ -147,9 +159,11 @@ export class TaskManager {
     async processTaskResult(taskId: string, result: TaskResult): Promise<boolean>
     async validateTask(taskId: string, result: TaskResult): Promise<boolean>
 }
+```
+
 TaskScheduler (src/core/TaskScheduler.ts)
 Optimizes task allocation.
-typescript
+```typescript
 export class TaskScheduler {
     private taskQueue: PriorityQueue<AITask>;
     private nodeRegistry: Map<string, ComputeNode>;
@@ -159,6 +173,8 @@ export class TaskScheduler {
     registerNode(node: ComputeNode): void
     findSuitableNode(task: AITask): ComputeNode | null
 }
+```
+
 Frontend Application
 Built with React and TypeScript, using Vite for fast builds.
 Key UI Components
@@ -176,7 +192,7 @@ Local/Session Storage: Persistent state.
 Blockchain Integration
 SolanaService (src/services/SolanaService.ts)
 Handles blockchain interactions.
-typescript
+```typescript
 export class SolanaService implements ISolanaService {
     private connection: Connection;
     private program: Program<Idl>;
@@ -188,9 +204,11 @@ export class SolanaService implements ISolanaService {
     async distributeReward(recipient: PublicKey, amount: number, payer: Keypair, tokenAccount: PublicKey): Promise<TransactionSignature>
     async stakeTokens(user: PublicKey, amount: number, payer: Keypair, tokenAccount: PublicKey): Promise<string>
 }
+
+```
 ComputeToken (src/contracts/ComputeToken.ts)
 Manages token economy.
-typescript
+```typescript  
 export class ComputeToken {
     private mintLimits = {
         hourly: 1000,
