@@ -269,6 +269,7 @@ export class SupabaseService {
 Database Schema
 nodes:
 sql
+```typescript
 CREATE TABLE nodes (
   id UUID PRIMARY KEY,
   owner_wallet TEXT NOT NULL,
@@ -328,9 +329,10 @@ CREATE TABLE referrals (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   claimed_at TIMESTAMP WITH TIME ZONE
 );
+```
 Compute Infrastructure
-WebGPU Implementation
-Uses modern web standards for GPU computing.
+- WebGPU Implementation
+- Uses modern web standards for GPU computing.
 
 ```typescript
 private async webGPUCompute(data: Float32Array, shader: string): Promise<Float32Array> {
@@ -366,9 +368,9 @@ export class RateLimiter {
 }
 ```
 Limits:
-Requests: 60/min (standard), 300/min (verified)
-Tasks: 100/hour (standard), 500/hour (verified)
-Withdrawals: 2/day (standard), 5/day (verified)
+- Requests: 60/min (standard), 300/min (verified)
+- Tasks: 100/hour (standard), 500/hour (verified)
+
 Task Validation
 ```typescript
 export class TaskValidator {
@@ -433,22 +435,22 @@ Deployment Process
 - Configure Supabase
 
 Structure
-NeuroSwarm/
-├── src/
-│   ├── components/        # React UI components
-│   ├── config/            # App configuration
-│   ├── contracts/         # Blockchain interfaces
-│   ├── core/              # Compute engine
-│   ├── hooks/             # React hooks
-│   ├── idl/               # Solana program interfaces
-│   ├── providers/         # Context providers
-│   ├── services/          # Backend services
-│   ├── types/             # TypeScript definitions
-│   └── utils/             # Utilities
-├── public/                # Static assets
-├── server/                # Backend code
-├── tests/                 # Test suite
-└── swarm_network/         # Solana program
+- NeuroSwarm/
+- ├── src/
+- │   ├── components/        # React UI components
+- │   ├── config/            # App configuration
+- │   ├── contracts/         # Blockchain interfaces
+- │   ├── core/              # Compute engine
+- │   ├── hooks/             # React hooks
+- │   ├── idl/               # Solana program interfaces
+- │   ├── providers/         # Context providers
+- │   ├── services/          # Backend services
+- │   ├── types/             # TypeScript definitions
+│-    └── utils/             # Utilities
+- ├── public/                # Static assets
+- ├── server/                # Backend code
+- ├── tests/                 # Test suite
+- └── swarm_network/         # Solana program
 
 
 Dev Tasks
