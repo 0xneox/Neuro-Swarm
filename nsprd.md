@@ -178,6 +178,7 @@ export class TaskScheduler {
 Frontend Application
 Built with React and TypeScript, using Vite for fast builds.
 Key UI Components
+
 Dashboard (src/components/Dashboard.tsx): Displays network stats, active nodes, tasks, and earnings.
 DevicePanel (src/components/DevicePanel.tsx): Manages device registration and status.
 AITasksPanel (src/components/AITasksPanel.tsx): Shows task listings, creation, and results.
@@ -192,6 +193,7 @@ Local/Session Storage: Persistent state.
 Blockchain Integration
 SolanaService (src/services/SolanaService.ts)
 Handles blockchain interactions.
+
 ```typescript
 export class SolanaService implements ISolanaService {
     private connection: Connection;
@@ -218,16 +220,18 @@ export class ComputeToken {
         slashingPenalty: 0.1,
         cooldownPeriod: 24 * 60 * 60 * 1000
     };
-    
+    ```
     // Core methods
     async mintTokens(recipient: PublicKey, amount: number, proof?: Buffer): Promise<string>
     async stakeTokens(user: PublicKey, amount: number): Promise<boolean>
     async unstakeTokens(user: PublicKey, amount: number): Promise<boolean>
     async distributeRewards(tasks: Task[]): Promise<void>
 }
+```
 Solana Program (swarm_network/programs/swarm_network/src)
 Implemented in Rust using Anchor.
 rust
+```typescript
 #[program]
 pub mod swarm_network {
     use super::*;
@@ -238,15 +242,19 @@ pub mod swarm_network {
     pub fn complete_task(ctx: Context<CompleteTask>, task_id: String, result: TaskResult) -> Result<()> {}
     pub fn claim_reward(ctx: Context<ClaimReward>, amount: u64) -> Result<()> {}
 }
+```
 State Accounts:
 DeviceAccount
 TaskAccount
 UserAccount
 NetworkState
 Database & State Management
+
+
 SupabaseService (src/services/SupabaseService.ts)
 Manages database operations.
-typescript
+
+```typescript
 export class SupabaseService {
     private client: SupabaseClient;
     
@@ -256,6 +264,7 @@ export class SupabaseService {
     async logTaskProof(proofData: TaskProofData): Promise<void>
     async getEarningHistory(days: number, walletAddress?: string): Promise<EarningHistory[]>
 }
+```
 Database Schema
 nodes:
 sql
@@ -371,28 +380,7 @@ interface NodeReputation {
     lastActive: number;
     isBanned: boolean;
 }
-Emergency Controls
-Network pause
-Node banning
-Stake slashing
-Task cancellation
-Performance Optimization
-WebGPU Pipeline
-Shader compilation caching
-Memory buffer optimization
-Parallel computation
-Efficient data transfers
-Load Balancing
-Capability matching
-Load distribution
-Latency optimization
-Reputation prioritization
-Caching Strategies
-Task result caching
-Shader compilation caching
-Blockchain state caching
-Device capability caching
-Deployment & Environment
+
 Development Setup
 bash
 git clone <repo-url>
@@ -443,7 +431,8 @@ NeuroSwarm/
 ├── server/                # Backend code
 ├── tests/                 # Test suite
 └── swarm_network/         # Solana program
-Common Development Tasks
+
+ Development Tasks
 New Task Type:
 Update TaskType in src/types/index.ts
 Add handler in TaskService
@@ -463,88 +452,3 @@ Unit: npm run test
 Integration: npm run test:integration
 E2E: npm run test:e2e
 Blockchain: cd swarm_network && anchor test
-Appendix: API Reference
-Core Interfaces
-AITask:
-typescript
-interface AITask {
-  id: string;
-  type: TaskType;
-  status: TaskStatus;
-  requirements: TaskRequirements;
-  created_at: Date;
-  completed_at?: Date;
-  assigned_node?: string;
-  result?: TaskResult;
-  user_id?: string;
-  priority?: number;
-  reward_amount?: number;
-}
-Device:
-typescript
-interface Device {
-  id: string;
-  name: string;
-  type: 'desktop' | 'laptop' | 'server' | 'mobile';
-  ownerPublicKey: string;
-  specs: DeviceSpecs;
-  status: 'online' | 'offline' | 'maintenance';
-  totalEarnings: number;
-}
-TaskRequirements:
-typescript
-interface TaskRequirements {
-  minVram: number;
-  minHashRate: number;
-  priority: 'low' | 'medium' | 'high';
-  minStake?: number;
-  maxExecutionTime?: number;
-}
-NodeMetrics:
-typescript
-interface NodeMetrics {
-  taskCount: number;
-  successRate: number;
-  averageExecutionTime: number;
-  totalEarnings: number;
-  uptime: number;
-  lastUpdated: Date;
-}
-Service APIs
-ComputeNode:
-initialize()
-startNode()
-stopNode()
-executeTask(task)
-getMetrics()
-SolanaService:
-registerDevice(specs)
-submitTask(owner, type, requirements)
-submitTaskProof(proofData)
-distributeReward(recipient, amount)
-stakeTokens(user, amount)
-TaskService:
-createTask(type, requirements)
-getAvailableTasks()
-processTask(taskId)
-validateTaskResult(taskId, result)
-SupabaseService:
-getNetworkStats()
-subscribeToTasks(callback)
-getEarningHistory(days, wallet)
-recordEarnings(wallet, amount, tasks)
-React Hooks
-useComputeToken:
-typescript
-export function useComputeToken(solanaService?: SolanaService) {
-  const [balance, setBalance] = useState<number>(0);
-  const [staked, setStaked] = useState<number>(0);
-  // Methods: getBalance, stake, unstake
-}
-useReferralCode:
-typescript
-export function useReferralCode() {
-  const [referralCode, setReferralCode] = useState<string | null>(null);
-  // Methods: generateCode, validateCode
-}
-
