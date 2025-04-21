@@ -434,23 +434,6 @@ Deployment Process
 - Deploy Solana program
 - Configure Supabase
 
-Structure
-- NeuroSwarm/
-- ├── src/
-- │   ├── components/        # React UI components
-- │   ├── config/            # App configuration
-- │   ├── contracts/         # Blockchain interfaces
-- │   ├── core/              # Compute engine
-- │   ├── hooks/             # React hooks
-- │   ├── idl/               # Solana program interfaces
-- │   ├── providers/         # Context providers
-- │   ├── services/          # Backend services
-- │   ├── types/             # TypeScript definitions
-│-    └── utils/             # Utilities
-- ├── public/                # Static assets
-- ├── server/                # Backend code
-- ├── tests/                 # Test suite
-- └── swarm_network/         # Solana program
 
 
 Dev Tasks
