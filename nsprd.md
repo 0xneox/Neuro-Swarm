@@ -233,6 +233,7 @@ export class ComputeToken {
 Solana Program (swarm_network/programs/swarm_network/src)
 Implemented in Rust using Anchor.
 rust
+```typescript
 #[program]
 pub mod swarm_network {
   use super::*;
@@ -243,6 +244,7 @@ pub mod swarm_network {
   pub fn complete_task(ctx: Context<CompleteTask>, task_id: String, result: TaskResult) -> Result<()> {}
   pub fn claim_reward(ctx: Context<ClaimReward>, amount: u64) -> Result<()> {}
 }
+```
 State Accounts:
 - DeviceAccount
 - TaskAccount
